@@ -1,0 +1,42 @@
+span.SignOut : link
+{
+	color: black;
+}
+
+span.SignOut:hover 
+{
+	text-decoration: underline;
+}
+
+body
+{
+	--color-primary: #009579;
+    --color-primary-dark: #007f67;
+    --color-secondary: #252c6a;
+    --color-error: #cc3333;
+    --color-success: #4bb544;
+    --border-radius: 4px;
+
+    
+    /*display: flex;
+    align-items: center;
+    justify-content: center;*/
+    background: url(./Images/LandingPageBG.jpg);
+    background-size: cover;
+}
+
+.heading 
+{
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	padding-top: 30px;
+	font-family: 'Comforter Brush', cursive;
+	color: white;
+	font-size: 80px;
+	text-shadow: 0 0 6px #000000;
+}
+
+.card-text:hover {
+	text-decoration: underline;
+}
