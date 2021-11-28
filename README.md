@@ -23,7 +23,13 @@ Here are the Various steps a user takes to use this software -
 
 # Technology being used 
 
-## 1. PHP 
+## 1. XAMPP
+I Used XAMPP to run my PHP programs on my browser. XAMPP is a free and open-source cross-platform web server solution stack package developed by Apache Friends, consisting mainly of the Apache HTTP Server, MariaDB database, and interpreters for scripts written in the PHP and Perl programming languages.
+It already had a server (apache) and MYSQL as the database and I would highly recommend using it as you have don't have to install servers and databases seperately.
+Here is the Link to Dowload it https://www.apachefriends.org/download.html
+you can watch this video to set it up https://www.youtube.com/watch?v=-f8N4FEQWyY
+
+## 2. PHP 
 PHP (Hypertext Preprocessor) is known as a general-purpose scripting language that can be used to develop dynamic and interactive websites. It was among the first server-side languages that could be embedded into HTML, making it easier to add functionality to web pages without needing to call external files for data. PHP started out as a small open source project that evolved as more and more people found out how useful it was. Rasmus Lerdorf unleashed the first version of PHP way back in 1994. 
 
 PHP is one of the most widely used language over the web. I'm going to list few of them here:
@@ -40,8 +46,12 @@ Some Resources to learn PHP are as follows :
 * https://www.php.net/
 * https://www.w3schools.com/php/
 
-## 2. Ratchet Websocket 
+## 3. Ratchet Websocket 
 WebSockets are a bi-directional, full-duplex, persistent connection from a web browser to a server. Once a WebSocket connection is established the connection stays open until the client or server decides to close this connection. With this open connection, the client or server can send a message at any given time to the other. This makes web programming entirely event driven, not (just) user initiated. It is stateful. As well, at this time, a single running server application is aware of all connections, allowing you to communicate with any number of open connections at any given time. 
+
+The official Documentation and Installation details can be found on http://socketo.me/docs/
+
+A quick example is below : 
 
 ```php
 <?php
@@ -89,9 +99,97 @@ class MyChat implements MessageComponentInterface {
     $app->route('/echo', new Ratchet\Server\EchoServer, array('*'));
     $app->run();
 ```
-## 3. MySQL 
-## 4. PHP Mailer 
-## 5. Interface Design - HTML , CSS , Javascript 
+
+Some other sources to learn about the Websocket are as follows (they helped me a lot!) 
+* http://socketo.me/docs/
+* https://medium.com/@winni4eva/php-websockets-with-ratchet-5e76bacd7548
+* https://github.com/ratchetphp/Ratchet
+
+## 4. MySQL (phpMyadmin)
+MySQL is a relational database management system based on SQL – Structured Query Language. The application is used for a wide range of purposes, including data warehousing, e-commerce, and logging applications. The most common use for mySQL however, is for the purpose of a web database. It can be used to store anything from a single record of information to an entire inventory of available products for an online store.
+
+In association with a scripting language such as PHP or Perl (both offered on our hosting accounts) it is possible to create websites which will interact in real-time with a mySQL database to rapidly display categorised and searchable information to a website user. Here are a few resources for you to learn MySQL :
+* https://dev.mysql.com/doc/
+* https://www.w3schools.com/mySQl/default.asp
+
+I used PHPMyadmin to process MySQL databases and tables for my project. 
+
+### PHPMyadmin 
+phpMyAdmin is a free software tool written in PHP, intended to handle the administration of MySQL over the Web. phpMyAdmin supports a wide range of operations on MySQL and MariaDB. Frequently used operations (managing databases, tables, columns, relations, indexes, users, permissions, etc) can be performed via the user interface, while you still have the ability to directly execute any SQL statement. 
+You can find everything about PHPMyadmin on their official website - https://www.phpmyadmin.net/
+
+## 5. PHP Mailer 
+Many PHP developers need to send email from their code. The only PHP function that supports this directly is mail(). However, it does not provide any assistance for making use of popular features such as encryption, authentication, HTML messages, and attachments.
+
+Formatting email correctly is surprisingly difficult. There are myriad overlapping (and conflicting) standards, requiring tight adherence to horribly complicated formatting and encoding rules – the vast majority of code that you'll find online that uses the mail() function directly is just plain wrong, if not unsafe!
+
+The PHP mail() function usually sends via a local mail server, typically fronted by a sendmail binary on Linux, BSD, and macOS platforms, however, Windows usually doesn't include a local mail server; PHPMailer's integrated SMTP client allows email sending on all platforms without needing a local mail server. Be aware though, that the mail() function should be avoided when possible; it's both faster and safer to use SMTP to localhost.
+You can find more about on its official repository - https://github.com/PHPMailer/PHPMailer
+
+### Installation Details :
+PHPMailer is available on Packagist (using semantic versioning), and installation via Composer is the recommended way to install PHPMailer. Just add this line to your composer.json file:
+```
+"phpmailer/phpmailer": "^6.5"
+```
+
+or run
+```
+composer require phpmailer/phpmailer
+```
+
+It will generate 2 files named VENDOR AND VENDOR/Autoload in your current directly and is ready for use. 
+
+A simple example of the code is below - 
+``` php
+<?php
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
+//Create an instance; passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+    //Server settings
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'user@example.com';                     //SMTP username
+    $mail->Password   = 'secret';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('from@example.com', 'Mailer');
+    $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
+    $mail->addAddress('ellen@example.com');               //Name is optional
+    $mail->addReplyTo('info@example.com', 'Information');
+    $mail->addCC('cc@example.com');
+    $mail->addBCC('bcc@example.com');
+
+    //Attachments
+    $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Here is the subject';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+
+```
 
 # Challenges faced 
 
