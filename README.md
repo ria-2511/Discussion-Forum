@@ -192,9 +192,30 @@ try {
 ```
 
 # Challenges faced 
+I faced a few challenges while making this project and have explained a few of them below - 
+
+* Changing acess to database tables to acess variales from tabkes outside of the file's boundary. 
+I had to acess a few variables (like the username and User email ID) for the assignments page and then show it on the interface. The assignemnts database only had the User ID so I had to match the USERID and then fetch those variables from another table that was the Chat_user_table and then finally display them on the main page. 
+
+* Swithing Ports for the acess 
+There was some error in the middle of my project and the Port I ahd assignmed to the Apache server was suddenly being used somewhere else. I had to change the posts and then further had to change a few URLs as well like the Email verification URL which worked on the original port and was now not acessible 
+
+* Operating the Server 
+My Server took a lot of time being initialised because of an error being shown repeatedly. The server was not acessible and it seems like I just had to change the port for that but the error said something else so it took me some time to figure it out! 
+
+* PHP Session Cookies 
+This was an huge issue for me. Whenever I loged in as a user then the Sessions saved that information and I could not register the user again even after I deleted their entry from the main database. I had to eventually switch to Incognito tabs to avoid this problems as I had to run the software quiet a few times and had to regsiter the same handful number of users again and again. 
 
 # Scope Of Improvement 
+There is a lot of scope of Improvement for this project. A few Ideas that I have in mind are - 
+* The Teacher can have a feature to mark imporatant features of the chat from their end. 
+* This software can be used in classroom for discussions in times of Covid 
+
 
 # References 
-
-
+Here are a few references of this project from which I have taken help from :
+* https://github.com/PHPMailer/PHPMailer
+* https://www.phpmyadmin.net/
+* https://medium.com/@winni4eva/php-websockets-with-ratchet-5e76bacd7548
+* https://www.w3schools.com/mySQl/default.asp
+* https://www.php.net/
